@@ -25,6 +25,10 @@ connection.on("ReceiveMessage", function (user, message, myCaptainId, myCaptainV
 
     // append to chart block
     document.getElementById(myCaptainId + 'Block').innerHTML += chartBlock;
+    // Increment Counter
+    var counter = document.getElementById(myCaptainId + 'Counter').innerHTML;
+    counter++
+    document.getElementById(myCaptainId + 'Counter').innerHTML = counter;
 });
 
 connection.start().catch(function (err) {
