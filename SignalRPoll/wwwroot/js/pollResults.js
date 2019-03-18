@@ -1,36 +1,89 @@
 "use strict";
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/pollHub").build();
-var chartBlock = '\u25A3'; //(U+25A3) is "▣" 
+var chartBlock = "\u25A3"; //(U+25A3) is "▣"
+var ctx = document.getElementById("bar-chart-horizontal");
+console.log(ctx);
+console.log(document.getElementById("responseHimCounter").innerHTML);
+console.log(document.getElementById("responseHerCounter").innerHTML);
 
-connection.on("ReceiveMessage", function (user, message, myResponseId, myResponseVal) {
-    // alert("myResponseId=" + myResponseId + ",myResponseVal=" + myResponseVal);
-    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    // var encodedMsg = user + " says " + msg;
-    var pollResultMsg = user + " voted for '" + myResponseVal + "'.";
-
-    // var liMessage = document.createElement("li");
-    // liMessage.textContent = encodedMsg;
-    // document.getElementById("messagesList").appendChild(liMessage);
-
-    var ulPoll = document.getElementById("messagesList");
-    var liPollResult = document.createElement("li");
-    liPollResult.textContent = pollResultMsg;
-
-    // append to top
-    ulPoll.insertBefore(liPollResult, ulPoll.childNodes[0]);
-
-    // append to end
-    // document.getElementById("messagesList").appendChild(liPollResult);
-
-    // append to chart block
-    document.getElementById(myResponseId + 'Block').innerHTML += chartBlock;
-    // Increment Counter
-    var counter = document.getElementById(myResponseId + 'Counter').innerHTML;
-    counter++
-    document.getElementById(myResponseId + 'Counter').innerHTML = counter;
+var myChart = new Chart(ctx, {
+  type: "horizontalBar",
+  data: {
+    labels: ["Him", "Her"],
+    datasets: [
+      {
+        label: "Responses (Audience!)",
+        backgroundColor: ["#3e95cd", "#f319ff"],
+        data: [0, 0]
+      }
+    ]
+  },
+  options: {
+    legend: { display: false },
+    title: {
+      display: true,
+      text: "Him vs Her",
+      scaleStartValue : 0 
+    },
+    scales: {
+        xAxes: [{
+            ticks: {
+                min: 0, // minimum value
+            }
+        }]
+    }
+  }
 });
 
-connection.start().catch(function (err) {
-    return console.error(err.toString());
+connection.on("ReceiveMessage", function(
+  user,
+  message,
+  myResponseId,
+  myResponseVal
+) {
+  // alert("myResponseId=" + myResponseId + ",myResponseVal=" + myResponseVal);
+  var msg = message
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  // var encodedMsg = user + " says " + msg;
+  var pollResultMsg = user + " voted for '" + myResponseVal + "'.";
+
+  // var liMessage = document.createElement("li");
+  // liMessage.textContent = encodedMsg;
+  // document.getElementById("messagesList").appendChild(liMessage);
+
+  var ulPoll = document.getElementById("messagesList");
+  var liPollResult = document.createElement("li");
+  liPollResult.textContent = pollResultMsg;
+
+  // append to top
+  ulPoll.insertBefore(liPollResult, ulPoll.childNodes[0]);
+
+  // append to end
+  // document.getElementById("messagesList").appendChild(liPollResult);
+
+  // append to chart block
+  document.getElementById(myResponseId + "Block").innerHTML += chartBlock;
+  // Increment Counter
+  var counter = document.getElementById(myResponseId + "Counter").innerHTML;
+  counter++;
+  document.getElementById(myResponseId + "Counter").innerHTML = counter;
+  addData(myChart);
+});
+
+function addData(myChart) {
+    console.log("Add Data Called");
+  myChart.data.datasets[0].data = [
+    document.getElementById("responseHimCounter").innerHTML,
+    document.getElementById("responseHerCounter").innerHTML
+  ];
+  console.log([document.getElementById("responseHimCounter").innerHTML,
+  document.getElementById("responseHerCounter").innerHTML])
+  myChart.update();
+}
+
+connection.start().catch(function(err) {
+  return console.error(err.toString());
 });
