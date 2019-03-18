@@ -3,11 +3,11 @@
 var connection = new signalR.HubConnectionBuilder().withUrl("/pollHub").build();
 var chartBlock = '\u25A3'; //(U+25A3) is "▣" 
 
-connection.on("ReceiveMessage", function (user, message, myCaptainId, myCaptainVal) {
-    // alert("myCaptainId=" + myCaptainId + ",myCaptainVal=" + myCaptainVal);
+connection.on("ReceiveMessage", function (user, message, myResponseId, myResponseVal) {
+    // alert("myResponseId=" + myResponseId + ",myResponseVal=" + myResponseVal);
     var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     // var encodedMsg = user + " says " + msg;
-    var pollResultMsg = user + " voted for '" + myCaptainVal + "'.";
+    var pollResultMsg = user + " voted for '" + myResponseVal + "'.";
 
     // var liMessage = document.createElement("li");
     // liMessage.textContent = encodedMsg;
@@ -24,11 +24,11 @@ connection.on("ReceiveMessage", function (user, message, myCaptainId, myCaptainV
     // document.getElementById("messagesList").appendChild(liPollResult);
 
     // append to chart block
-    document.getElementById(myCaptainId + 'Block').innerHTML += chartBlock;
+    document.getElementById(myResponseId + 'Block').innerHTML += chartBlock;
     // Increment Counter
-    var counter = getElementById(myCaptainId + 'Counter').innerHTML;
+    var counter = document.getElementById(myResponseId + 'Counter').innerHTML;
     counter++
-    document.getElementById(myCaptainId + 'Counter').innerHTML = counter;
+    document.getElementById(myResponseId + 'Counter').innerHTML = counter;
 });
 
 connection.start().catch(function (err) {

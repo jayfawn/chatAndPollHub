@@ -5,9 +5,9 @@ namespace SignalRChat.Hubs
 {
     public class PollHub : Hub
     {
-        public async Task SendMessage(string user, string message, string myCaptainId, string myCaptainVal)
+        public async Task SendMessage(string user, string message, string responseID, string responseVal)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message, myCaptainId, myCaptainVal);
+            await Clients.All.SendAsync("ReceiveMessage", user, message, responseID, responseVal);
         }
     }
 }
