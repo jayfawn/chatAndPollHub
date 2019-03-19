@@ -14,7 +14,7 @@ var myChart = new Chart(ctx, {
     datasets: [
       {
         label: "Responses (Audience!)",
-        backgroundColor: ["#3e95cd", "#f319ff"],
+        backgroundColor: ["#3e95cd", "#8e5ea2"],
         data: [0, 0]
       }
     ]

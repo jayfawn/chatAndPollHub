@@ -14,4 +14,10 @@
     <PackageReference Include="System.Reactive.Linq" Version="4.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\css\PollResults.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\css\PollResults.css" />
+  </ItemGroup>
 </Project>
