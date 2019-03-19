@@ -4,7 +4,7 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/pollHub").build();
 var chartBlock = '\u25A3'; //(U+25A3) is "▣" 
 
 document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
+    var user = localStorage.getItem("user");
     var message = ""; //document.getElementById("messageInput").value;
     //var myResponse = document.getElementById("myResponse").value;
 
@@ -21,7 +21,6 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     } else {
         return console.log("No response selected.");
     }
-
     event.preventDefault();
 });
 

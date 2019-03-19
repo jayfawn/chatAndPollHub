@@ -80,6 +80,8 @@ function addData(myChart) {
   console.log([document.getElementById("responseHimCounter").innerHTML,
   document.getElementById("responseHerCounter").innerHTML])
   myChart.update();
+  console.log(localStorage.getItem("q1"))
+  console.log(localStorage.getItem("q10"))
 }
 
 connection.start().catch(function(err) {

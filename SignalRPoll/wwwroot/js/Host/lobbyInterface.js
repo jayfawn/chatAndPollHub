@@ -15,4 +15,10 @@ connection.on("ReceiveUser", function(user) {
 connection.start().catch(function(err) {
   return console.error(err.toString());
 });
-  
+
+
+$( "#start" ).click(function(event) {
+  event.preventDefault()
+  $(location).attr('href', '/Host/Results')
+})
+

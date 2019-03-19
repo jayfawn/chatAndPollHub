@@ -14,6 +14,5 @@ $( "#create" ).click(function(event) {
 
     console.log(localStorage.getItem("q1"))
     console.log(localStorage.getItem("q10"))
-    $(location).attr('href', '/lobby')
-})
-
+    $(location).attr('href', '/Host/lobby')
+});
