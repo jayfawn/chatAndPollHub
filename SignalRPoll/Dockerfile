@@ -1,4 +1,8 @@
-FROM microsoft/dotnet:2.2-aspnetcore-runtime
+FROM microsoft/dotnet:2.2-sdk
 WORKDIR /app
-COPY /app /app
-ENTRYPOINT [ "dotnet" , "SignalRPoll.dll"]
+COPY *.csproj ./
+RUN dotnet restore
+
+COPY . ./
+RUN dotnet publish -c Release -o out
+ENTRYPOINT [ "dotnet" , "out/SignalRPoll.dll"]
