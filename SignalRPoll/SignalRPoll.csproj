@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\css\PollResults.css" />
+    <Content Remove="Pages\Poll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\css\PollResults.css" />
