@@ -24,6 +24,12 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     event.preventDefault();
 });
 
+connection.on("ReceiveQuestion", function(question) {
+    console.log(question);
+    console.log(localStorage.getItem("q1"));
+    document.getElementById("question").innerHTML = question;
+  });
+
 connection.start().catch(function (err) {
     return console.error(err.toString());
 });

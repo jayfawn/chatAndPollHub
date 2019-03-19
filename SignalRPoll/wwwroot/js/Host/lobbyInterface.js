@@ -11,14 +11,18 @@ connection.on("ReceiveUser", function(user) {
     ulUsers.insertBefore(liUser, ulUsers.childNodes[0]);
   });
 
+$( "#start" ).click(function(event) {
+  event.preventDefault()
+  $(location).attr('href', '/Host/Results')
+
+  var question = localStorage.getItem("q1");
+  console.log(question)
+  connection.invoke("SendQuestion", question).catch(function (err) {
+    return console.error(err.toString());
+});
+})
 
 connection.start().catch(function(err) {
   return console.error(err.toString());
 });
-
-
-$( "#start" ).click(function(event) {
-  event.preventDefault()
-  $(location).attr('href', '/Host/Results')
-})
 
