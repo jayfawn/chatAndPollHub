@@ -1,7 +1,6 @@
 "use strict";
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/pollHub").build();
-var chartBlock = "\u25A3"; //(U+25A3) is "▣"
 var ctx = document.getElementById("bar-chart-horizontal");
 console.log(ctx);
 console.log(document.getElementById("responseHimCounter").innerHTML);
@@ -64,8 +63,7 @@ connection.on("ReceiveMessage", function(
   // append to end
   // document.getElementById("messagesList").appendChild(liPollResult);
 
-  // append to chart block
-  document.getElementById(myResponseId + "Block").innerHTML += chartBlock;
+ 
   // Increment Counter
   var counter = document.getElementById(myResponseId + "Counter").innerHTML;
   counter++;
